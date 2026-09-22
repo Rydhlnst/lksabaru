@@ -98,6 +98,20 @@ export const ledgerSchema = z.object({
   public: z.boolean(),
 });
 
+export const donationSubmissionSchema = z.object({
+  donorName: text(160),
+  donorPhone: z.string().trim().max(30),
+  amount: z.preprocess((value) => typeof value === "string" && !value.trim() ? undefined : value, z.coerce.number().int().finite().min(1000).max(Number.MAX_SAFE_INTEGER)),
+  transferDate: z.iso.date(),
+  proofUrl: publicUrl,
+  note: z.string().trim().max(500),
+});
+
+export const donationReviewSchema = z.object({
+  id: text(120),
+  status: z.enum(["verified", "rejected"]),
+  adminNote: z.string().trim().max(500),
+});
 export const heroSchema = z.object({
   id: idSchema,
   title: text(200),

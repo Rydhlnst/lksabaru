@@ -1,9 +1,13 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { createAdminSession, credentialsMatch, destroyAdminSession, requireAdmin } from "@/lib/auth";
 import { getSiteContent, saveSiteContent } from "@/lib/content-store";
+import { donationReviewSchema } from "@/lib/validation";
+import { donationSubmissions } from "@/lib/db/schema";
+import { db } from "@/lib/db";
 import { deleteStoredMedia } from "@/lib/media-storage";
 import { getImageReferences } from "@/lib/media-references";
 import { revalidatePublicContent } from "@/lib/public-content";
@@ -194,6 +198,15 @@ export async function saveScheduleAction(formData: FormData) {
   redirect("/admin/schedule?saved=1");
 }
 
+export async function reviewDonationAction(formData: FormData): Promise<never> {
+  await requireAdmin();
+  const parsed = donationReviewSchema.safeParse({ id: value(formData, "id"), status: value(formData, "status"), adminNote: value(formData, "adminNote") });
+  if (!parsed.success || !db) redirect("/admin/donation?error=validation");
+  await db.update(donationSubmissions).set({ status: parsed.data.status, adminNote: parsed.data.adminNote, verifiedAt: parsed.data.status === "verified" ? new Date() : null, updatedAt: new Date() }).where(eq(donationSubmissions.id, parsed.data.id));
+  revalidatePath("/donasi");
+  revalidatePath("/admin");
+  redirect("/admin/donation?saved=1");
+}
 export async function saveDonationAction(formData: FormData) {
   await requireAdmin();
   const content = await getSiteContent();

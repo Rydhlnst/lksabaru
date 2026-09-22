@@ -1,4 +1,4 @@
-import { boolean, date, integer, jsonb, pgTable, text, timestamp } from "drizzle-orm/pg-core";
+import { boolean, date, index, integer, jsonb, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 
 const timestamps = { createdAt: timestamp("created_at").notNull().defaultNow(), updatedAt: timestamp("updated_at").notNull().defaultNow() };
 
@@ -13,5 +13,17 @@ export const galleryItems = pgTable("gallery_items", { id: text("id").primaryKey
 export const donationSettings = pgTable("donation_settings", { id: text("id").primaryKey(), data: jsonb("data").notNull(), ...timestamps });
 export const donationLedger = pgTable("donation_ledger", { id: text("id").primaryKey(), type: text("type").notNull(), description: text("description").notNull(), amount: integer("amount").notNull(), entryDate: date("entry_date").notNull(), status: text("status").notNull(), public: boolean("public").notNull().default(false), ...timestamps });
 export const donors = pgTable("donors", { id: text("id").primaryKey(), displayName: text("display_name").notNull(), amount: integer("amount").notNull(), entryDate: date("entry_date").notNull(), public: boolean("public").notNull().default(false), ...timestamps });
+export const donationSubmissions = pgTable("donation_submissions", {
+  id: text("id").primaryKey(),
+  donorName: text("donor_name").notNull(),
+  donorPhone: text("donor_phone").notNull().default(""),
+  amount: integer("amount").notNull(),
+  transferDate: date("transfer_date").notNull(),
+  proofUrl: text("proof_url").notNull(),
+  note: text("note").notNull().default(""),
+  status: text("status").notNull().default("pending"),
+  adminNote: text("admin_note").notNull().default(""),
+  verifiedAt: timestamp("verified_at"),
+  ...timestamps,
+}, (table) => ({ statusCreatedIdx: index("donation_submissions_status_created_idx").on(table.status, table.createdAt) }));
 export const mediaAssets = pgTable("media_assets", { id: text("id").primaryKey(), url: text("url").notNull(), filename: text("filename").notNull(), mimeType: text("mime_type").notNull(), alt: text("alt").notNull().default(""), ...timestamps });
-
