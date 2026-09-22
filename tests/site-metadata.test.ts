@@ -16,6 +16,6 @@ test("builds share metadata with an absolute OG image URL", () => {
 
   assert.equal(metadata.metadataBase?.toString(), "https://lksa.example.com/");
   assert.equal(openGraph.type, "website");
-  assert.equal(openGraph.images?.[0]?.url, "https://lksa.example.com/media/logo-lksa-transparent.png");
+  assert.equal(openGraph.images?.[0]?.url, "https://lksa.example.com/media/logo-payf.png");
   assert.equal(twitter.card, "summary_large_image");
 });
