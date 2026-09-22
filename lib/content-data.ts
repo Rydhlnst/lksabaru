@@ -5,7 +5,7 @@ export const defaultContent: SiteContent = {
   settings: {
     organizationName: "Panti Asuhan / LKSA Yatim Piatu Fakir Miskin (PAYF) Al-Furqon Sanden",
     shortName: "PAYF Al-Furqon Sanden",
-    logoPrimary: "",
+    logoPrimary: "/media/logo-payf.png",
     logoSecondary: "",
     address: "27H6+W5P, Bongos Kenti, Murtigading, Kec. Sanden, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55763",
     phone: "+62 000 0000 0000",
@@ -100,6 +100,7 @@ export const defaultContent: SiteContent = {
   ledger: [],
   donors: [],
 };
+
 
 
 
