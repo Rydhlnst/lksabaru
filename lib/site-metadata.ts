@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-const shareImagePath = "/media/hero-kegiatan-pengajian.jpeg";
+const shareImagePath = "/media/logo-lksa-transparent.png";
 export const defaultSiteBaseUrl = "https://payf-alfurqon-sanden.id";
 
 export function resolveSiteBaseUrl(configuredBaseUrl?: string): string {
