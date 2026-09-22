@@ -23,7 +23,7 @@ export const defaultContent: SiteContent = {
   },
   home: {
     about: { eyebrow: "Tentang Kami", title: "Menjaga amanah pengasuhan dengan kasih dan pendidikan", description: "Panti Asuhan / LKSA Yatim Piatu Fakir Miskin (PAYF) Al-Furqon Sanden mendampingi anak asuh dalam lingkungan yang aman, religius, dan penuh kebersamaan.", ctaLabel: "Baca Selengkapnya" },
-    video: { eyebrow: "Cerita Kemandirian", title: "Kegiatan PAYF, usaha kreatif untuk memberdayakan anak asuh", description: "Tonton video resmi PAYF Al-Furqon Sanden tentang ikhtiar kemandirian panti melalui Kegiatan PAYF.", youtubeUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ" },
+    video: { eyebrow: "Cerita Kemandirian", title: "Kegiatan PAYF, usaha kreatif untuk memberdayakan anak asuh", description: "Tonton video resmi PAYF Al-Furqon Sanden tentang ikhtiar kemandirian panti melalui Kegiatan PAYF.", youtubeUrl: "https://www.facebook.com/share/r/1DnHVEnaBQ/" },
     gallery: { eyebrow: "Dokumentasi", title: "Momen yang tumbuh bersama", description: "Lihat kegiatan, kebersamaan, dan proses belajar anak asuh di lingkungan LKSA.", ctaLabel: "Lihat Semua Galeri" },
     news: { eyebrow: "Kabar Terbaru", title: "Cerita dan kegiatan terbaru", description: "Ikuti kegiatan pendidikan, pembinaan Al-Qur'an, dan kebersamaan anak asuh.", ctaLabel: "Lihat Semua Berita" },
     support: { eyebrow: "Mari Bersama", title: "Menanam kebaikan untuk masa depan yang lebih cerah", description: "Dukungan Anda membantu menyediakan pendidikan, pengasuhan, dan kesempatan tumbuh bagi anak-anak asuh.", ctaLabel: "Salurkan Donasi" },
@@ -100,9 +100,3 @@ export const defaultContent: SiteContent = {
   ledger: [],
   donors: [],
 };
-
-
-
-
-
-

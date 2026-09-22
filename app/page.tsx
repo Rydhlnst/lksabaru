@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, BookOpen, Heart, Sparkles, Users } from "lucide-react";
+import { ArrowRight, BookOpen, ExternalLink, Heart, Sparkles, Users } from "lucide-react";
 import { getSiteContent } from "@/lib/content-store";
 import { getGalleryPreview } from "@/lib/gallery-presentation";
 import { HeroCarousel } from "@/components/site/hero-carousel";
@@ -8,6 +8,14 @@ import { PublicShell } from "@/components/site/public-shell";
 import { SectionHeading } from "@/components/site/section-heading";
 
 const icons = { heart: Heart, book: BookOpen, sparkles: Sparkles, users: Users };
+
+function isYouTubeUrl(value: string) {
+  try {
+    return ["youtube.com", "www.youtube.com", "m.youtube.com", "youtu.be", "www.youtube-nocookie.com", "youtube-nocookie.com"].includes(new URL(value).hostname);
+  } catch {
+    return false;
+  }
+}
 
 export default async function Home() {
   const content = await getSiteContent();
@@ -33,7 +41,7 @@ export default async function Home() {
         <div className="site-container grid gap-8 lg:grid-cols-[.8fr_1.2fr] lg:items-center">
           <SectionHeading eyebrow={content.home.video.eyebrow} title={content.home.video.title} description={content.home.video.description} />
           <div className="aspect-video overflow-hidden rounded-3xl border border-line bg-navy shadow-card">
-            <iframe className="h-full w-full" src={content.home.video.youtubeUrl} title={content.home.video.title} loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+            {isYouTubeUrl(content.home.video.youtubeUrl) ? <iframe className="h-full w-full" src={content.home.video.youtubeUrl} title={content.home.video.title} loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen /> : <a href={content.home.video.youtubeUrl} target="_blank" rel="noreferrer" className="flex h-full flex-col items-center justify-center gap-4 bg-[#1877f2] p-8 text-center text-white transition hover:bg-[#166fe5]"><span className="text-xs font-bold uppercase tracking-[0.18em] text-white/70">Video Facebook</span><span className="max-w-sm font-heading text-2xl font-bold">Buka video kegiatan PAYF Al-Furqon Sanden</span><span className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-bold text-[#1877f2]">Tonton video <ExternalLink className="h-4 w-4" /></span></a>}
           </div>
         </div>
       </section>

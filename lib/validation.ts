@@ -14,11 +14,7 @@ const ctaSectionSchema = sectionSchema.extend({ ctaLabel: text(120) });
 export const homeSchema = z.object({
   about: ctaSectionSchema,
   video: sectionSchema.extend({
-    youtubeUrl: httpUrl.refine((value) => {
-      try {
-        return ["youtube.com", "www.youtube.com", "m.youtube.com", "youtu.be", "www.youtube-nocookie.com", "youtube-nocookie.com"].includes(new URL(value).hostname);
-      } catch { return false; }
-    }, "URL YouTube tidak valid."),
+    youtubeUrl: httpUrl,
   }),
   gallery: ctaSectionSchema,
   news: ctaSectionSchema,

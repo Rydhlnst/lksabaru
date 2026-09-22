@@ -44,7 +44,7 @@ export default async function HomeAdminPage({ searchParams }: PageProps<"/admin/
                 <label className="text-sm font-semibold">Label bagian (eyebrow)<input className={input} name={`${key}.eyebrow`} defaultValue={section.eyebrow} required /></label>
                 <label className="text-sm font-semibold">Judul<input className={input} name={`${key}.title`} defaultValue={section.title} required /></label>
                 <label className="text-sm font-semibold md:col-span-2">Deskripsi<textarea className={input} name={`${key}.description`} defaultValue={section.description} rows={3} required /></label>
-                {"youtubeUrl" in section ? <label className="text-sm font-semibold md:col-span-2">URL YouTube (gunakan URL embed)<input className={input} name={`${key}.youtubeUrl`} type="url" defaultValue={section.youtubeUrl} required /></label> : <label className="text-sm font-semibold">Label CTA<input className={input} name={`${key}.ctaLabel`} defaultValue={section.ctaLabel} required /></label>}
+                {"youtubeUrl" in section ? <label className="text-sm font-semibold md:col-span-2">URL Video (YouTube atau Facebook)<input className={input} name={`${key}.youtubeUrl`} type="url" defaultValue={section.youtubeUrl} required /></label> : <label className="text-sm font-semibold">Label CTA<input className={input} name={`${key}.ctaLabel`} defaultValue={section.ctaLabel} required /></label>}
               </fieldset>
             );
           })}
