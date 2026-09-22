@@ -9,13 +9,13 @@ export const defaultContent: SiteContent = {
     logoSecondary: "",
     address: "27H6+W5P, Bongos Kenti, Murtigading, Kec. Sanden, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55763",
     phone: "+62 000 0000 0000",
-    email: "info@payf-alfurqon-sanden.id",
+    email: "payf.alfurqon@gmail.com",
     mapUrl: "https://www.google.com/maps/search/?api=1&query=PAYF+Al-Furqon+Sanden",
     socialLinks: [
       { label: "Google Maps", href: "https://www.google.com/maps/search/?api=1&query=PAYF+Al-Furqon+Sanden" },
     ],
     footerDescription: "PAYF Al-Furqon Sanden mendampingi anak asuh melalui pengasuhan, pendidikan, pembinaan Al-Qur'an, dan kegiatan sosial yang berkelanjutan.",
-    whatsappNumber: "620000000000",
+    whatsappNumber: "628170419233",
     whatsappAgentName: "Pengelola PAYF Al-Furqon Sanden",
     whatsappResponseTime: "Biasanya membalas dalam beberapa jam.",
     whatsappGreeting: "Assalamu'alaikum. Ada yang bisa kami bantu terkait informasi panti, kunjungan, atau donasi?",
@@ -96,7 +96,7 @@ export const defaultContent: SiteContent = {
   documents: [
     { id: "doc-profil", title: "Profil PAYF Al-Furqon Sanden", description: "Dokumen profil PAYF Al-Furqon Sanden.", href: "/documents/profil-payf-al-furqon-sanden.pdf", category: "profil", published: true },
   ],
-  donation: { heading: "Dukung Pengasuhan dan Pendidikan Anak", description: "Donasi Anda membantu kebutuhan pendidikan, pembinaan Al-Qur'an, kesehatan, dan pengasuhan anak-anak PAYF.", bankName: "Konfirmasi kepada pengelola PAYF", accountNumber: "Hubungi pengelola PAYF", accountHolder: "PAYF Al-Furqon Sanden", qrisUrl: "", confirmationMessage: "Assalamu'alaikum, saya sudah melakukan donasi untuk Panti Asuhan / LKSA Yatim Piatu Fakir Miskin (PAYF) Al-Furqon Sanden dan ingin melakukan konfirmasi.", confirmationWhatsapp: "620000000000", transparencyHeading: "Transparansi dan Legalitas Donasi" },
+  donation: { heading: "Dukung Pengasuhan dan Pendidikan Anak", description: "Donasi Anda membantu kebutuhan pendidikan, pembinaan Al-Qur'an, kesehatan, dan pengasuhan anak-anak PAYF.", bankName: "Konfirmasi kepada pengelola PAYF", accountNumber: "Hubungi pengelola PAYF", accountHolder: "PAYF Al-Furqon Sanden", qrisUrl: "", confirmationMessage: "Assalamu'alaikum, saya sudah melakukan donasi untuk Panti Asuhan / LKSA Yatim Piatu Fakir Miskin (PAYF) Al-Furqon Sanden dan ingin melakukan konfirmasi.", confirmationWhatsapp: "628170419233", transparencyHeading: "Transparansi dan Legalitas Donasi" },
   ledger: [],
   donors: [],
 };
