@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, BookOpen, ExternalLink, Heart, Sparkles, Users } from "lucide-react";
@@ -6,6 +7,8 @@ import { getGalleryPreview } from "@/lib/gallery-presentation";
 import { HeroCarousel } from "@/components/site/hero-carousel";
 import { PublicShell } from "@/components/site/public-shell";
 import { SectionHeading } from "@/components/site/section-heading";
+
+export const metadata: Metadata = { alternates: { canonical: "/" } };
 
 const icons = { heart: Heart, book: BookOpen, sparkles: Sparkles, users: Users };
 

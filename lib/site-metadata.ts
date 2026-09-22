@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-const shareImagePath = "/media/logo-payf.png";
+const shareImagePath = "/og-image.jpg";
 export const defaultSiteBaseUrl = "https://www.pantialfurqonsanden.web.id";
 
 export function resolveSiteBaseUrl(configuredBaseUrl?: string): string {
@@ -35,6 +35,9 @@ export function buildSiteMetadata({
       images: [
         {
           url: shareImageUrl,
+          width: 1200,
+          height: 630,
+          type: "image/jpeg",
           alt: organizationName,
         },
       ],
