@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 const shareImagePath = "/media/logo-lksa-transparent.png";
-export const defaultSiteBaseUrl = "https://payf-alfurqon-sanden.id";
+export const defaultSiteBaseUrl = "https://www.partialfurqonsanden.web.id";
 
 export function resolveSiteBaseUrl(configuredBaseUrl?: string): string {
   return configuredBaseUrl?.trim() || defaultSiteBaseUrl;
