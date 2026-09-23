@@ -8,7 +8,7 @@ export const defaultContent: SiteContent = {
     logoPrimary: "/media/logo-payf.png",
     logoSecondary: "",
     address: "27H6+W5P, Bongos Kenti, Murtigading, Kec. Sanden, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55763",
-    phone: "+62 000 0000 0000",
+    phone: "0817-0419-233",
     email: "payf.alfurqon@gmail.com",
     mapUrl: "https://www.google.com/maps/search/?api=1&query=PAYF+Al-Furqon+Sanden",
     socialLinks: [
