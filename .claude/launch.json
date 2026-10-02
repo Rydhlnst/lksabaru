@@ -1,0 +1,18 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "lksa",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["node_modules/next/dist/bin/next", "dev"],
+      "port": 3200,
+      "autoPort": true
+    },
+    {
+      "name": "lksa-nodb",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["C:/Users/LENOVO/AppData/Local/Temp/claude/D--Projects-Freelance-LKSA/6f067a41-9975-4e0e-8712-9f481a852769/scratchpad/dev-nodb.js"],
+      "port": 3100
+    }
+  ]
+}

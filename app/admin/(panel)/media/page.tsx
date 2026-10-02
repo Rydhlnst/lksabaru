@@ -11,7 +11,7 @@ export default async function MediaAdminPage() {
   const assets = await getMediaAssets().catch(() => []);
   return (
     <>
-      <PageHeader title="Media Library" description="Unggah gambar yang sudah mendapat izin penggunaan, lalu pakai ulang di galeri, beranda, atau berita.">
+      <PageHeader title="Media Library" description="Unggah gambar sekali, lalu pakai ulang di galeri, beranda, atau berita.">
         <Button asChild variant="outline" size="lg"><Link href="/admin/gallery"><GalleryVerticalEnd />Galeri</Link></Button>
       </PageHeader>
       <MediaUploader initialAssets={assets.map((asset) => ({ ...asset, createdAt: asset.createdAt.toISOString() }))} />

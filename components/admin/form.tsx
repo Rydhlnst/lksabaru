@@ -94,7 +94,7 @@ export function TextField({ name, label, hint, className, ...props }: FieldProps
 
 export function TextareaField({ name, label, hint, className, ...props }: FieldProps & Omit<ComponentProps<"textarea">, "name" | "className">) {
   const { id, aria } = useField(name);
-  return <FieldShell id={id} name={name} label={label} hint={hint} required={props.required} className={className}><Textarea id={id} name={name} className="border-border bg-background shadow-xs" {...aria} {...props} /></FieldShell>;
+  return <FieldShell id={id} name={name} label={label} hint={hint} required={props.required} className={className}><Textarea id={id} name={name} className="border-border bg-background shadow-xs" style={{ minHeight: `calc(${Number(props.rows ?? 3)} * 1.5em + 1rem)` }} {...aria} {...props} /></FieldShell>;
 }
 
 export function SelectField({ name, label, hint, className, options, ...props }: FieldProps & Omit<ComponentProps<"select">, "name" | "className" | "size"> & { options: readonly { value: string; label: string }[] }) {

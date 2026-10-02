@@ -49,7 +49,9 @@ export function EntitySheet({ trigger, title, description, action, submitLabel =
   );
 }
 
-export function DeleteButton({ id, action, title, description }: { id: string; action: AdminAction; title: string; description: ReactNode }) {
+/** `redirectTo` dipakai di halaman detail: setelah data terhapus, kembali ke daftar. `children` mengganti ikon dengan tombol berlabel. */
+export function DeleteButton({ id, action, title, description, redirectTo, children }: { id: string; action: AdminAction; title: string; description: ReactNode; redirectTo?: string; children?: ReactNode }) {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [pending, startTransition] = useTransition();
 
@@ -66,13 +68,16 @@ export function DeleteButton({ id, action, title, description }: { id: string; a
       if (!result) return;
       if (result.ok) toast.success(result.message); else toast.error(result.message);
       setOpen(false);
+      if (result.ok && redirectTo) router.push(redirectTo);
     });
   }
 
   return (
     <AlertDialog open={open} onOpenChange={(next) => { if (!pending) setOpen(next); }}>
       <AlertDialogTrigger asChild>
-        <Button type="button" variant="ghost" size="icon" aria-label={title} className="text-muted-foreground hover:bg-destructive/10 hover:text-destructive"><Trash2 /></Button>
+        {children
+          ? <Button type="button" variant="outline" size="lg" className="text-destructive hover:bg-destructive/10 hover:text-destructive"><Trash2 />{children}</Button>
+          : <Button type="button" variant="ghost" size="icon" aria-label={title} className="text-muted-foreground hover:bg-destructive/10 hover:text-destructive"><Trash2 /></Button>}
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

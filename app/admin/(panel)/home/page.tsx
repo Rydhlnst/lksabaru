@@ -92,8 +92,9 @@ export default async function HomeAdminPage() {
             );
           })}
         </div>
-        <div className="sticky bottom-4 z-10 flex justify-end">
-          <SubmitButton className="shadow-lg">Simpan konten beranda</SubmitButton>
+        <div className="sticky bottom-4 z-10 flex items-center justify-between gap-4 rounded-xl border bg-card/95 px-4 py-3 shadow-lg backdrop-blur">
+          <p className="text-sm text-muted-foreground">Perubahan baru tayang setelah disimpan.</p>
+          <SubmitButton>Simpan konten beranda</SubmitButton>
         </div>
       </AdminForm>
     </>

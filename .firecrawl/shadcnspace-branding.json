@@ -1,0 +1,146 @@
+{
+  "branding": {
+    "colorScheme": "light",
+    "fonts": [
+      {
+        "family": "Geist",
+        "role": "unknown"
+      }
+    ],
+    "colors": {
+      "primary": "#C2FD75",
+      "accent": "#777E89",
+      "background": "#FAFAFA",
+      "textPrimary": "#0A0A0A",
+      "link": "#777E89"
+    },
+    "typography": {
+      "fontFamilies": {
+        "primary": "Geist",
+        "heading": "Geist"
+      },
+      "fontStacks": {
+        "heading": [
+          "Geist"
+        ],
+        "body": [
+          "Geist"
+        ],
+        "paragraph": [
+          "Geist"
+        ]
+      },
+      "fontSizes": {
+        "h1": "16px",
+        "h2": "16px",
+        "body": "16px"
+      }
+    },
+    "spacing": {
+      "baseUnit": 4,
+      "borderRadius": "6px"
+    },
+    "components": {
+      "input": {
+        "background": "transparent",
+        "textColor": "#0A0A0A",
+        "borderColor": "#E5E5E5",
+        "borderRadius": "8px",
+        "borderRadiusCorners": {
+          "topLeft": "8px",
+          "topRight": "8px",
+          "bottomRight": "8px",
+          "bottomLeft": "8px"
+        },
+        "shadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 1px 2px 0px"
+      }
+    },
+    "images": {
+      "logo": "https://dashboard.shadcnspace.com/images/logos/darklogo.svg?dpl=dpl_68gjxzoc11nmEjmEnpKJdTFd7GHg",
+      "favicon": "https://dashboard.shadcnspace.com/favicon.ico?favicon.2194e5be.ico",
+      "ogImage": "https://dashboard.shadcnspace.com/og-image.webp",
+      "logoHref": "/",
+      "logoAlt": "logo"
+    },
+    "personality": {
+      "tone": "modern",
+      "energy": "medium",
+      "targetAudience": "unknown"
+    },
+    "designSystem": {
+      "framework": "custom",
+      "componentLibrary": "shadcn"
+    },
+    "confidence": {
+      "buttons": 0,
+      "colors": 0.9,
+      "overall": 0.45
+    },
+    "brandName": "ShadcnSpace Dashboard",
+    "logo": "https://dashboard.shadcnspace.com/images/logos/darklogo.svg?dpl=dpl_68gjxzoc11nmEjmEnpKJdTFd7GHg"
+  },
+  "metadata": {
+    "og:url": "https://dashboard.shadcnspace.com/",
+    "og:image:height": "630",
+    "ogUrl": "https://dashboard.shadcnspace.com/",
+    "ogLocale": "en_US",
+    "og:site_name": "ShadcnSpace Dashboard",
+    "og:type": "website",
+    "description": "Analytics template page",
+    "og:title": "ShadcnSpace Dashboard",
+    "ogDescription": "Modern admin dashboard built with Next.js, Tailwind, and Shadcn.",
+    "og:locale": "en_US",
+    "ogImage": "https://dashboard.shadcnspace.com/og-image.webp",
+    "ogSiteName": "ShadcnSpace Dashboard",
+    "og:image:width": "1200",
+    "og:image": "https://dashboard.shadcnspace.com/og-image.webp",
+    "title": "Analytics Admin Dashboard",
+    "twitter:card": "summary_large_image",
+    "twitter:title": "ShadcnSpace Dashboard",
+    "twitter:description": "Modern admin dashboard built with Next.js, Tailwind, and Shadcn.",
+    "og:image:alt": "ShadcnSpace Dashboard Preview",
+    "twitter:image": "https://dashboard.shadcnspace.com/og-image.webp",
+    "next-size-adjust": "",
+    "language": "en",
+    "ogTitle": "ShadcnSpace Dashboard",
+    "og:description": "Modern admin dashboard built with Next.js, Tailwind, and Shadcn.",
+    "viewport": "width=device-width, initial-scale=1",
+    "favicon": "https://dashboard.shadcnspace.com/favicon.ico?favicon.2194e5be.ico",
+    "scrapeId": "01a0f713-b468-74da-8738-dfb5839a3163",
+    "sourceURL": "https://dashboard.shadcnspace.com/",
+    "url": "https://dashboard.shadcnspace.com/",
+    "statusCode": 200,
+    "contentType": "text/html; charset=utf-8",
+    "timezone": "America/New_York",
+    "proxyUsed": "basic",
+    "indexId": "a2b4d9bb-b4d0-49b5-ad56-e4db7d8c0d2c",
+    "creditsUsed": 1,
+    "concurrencyLimited": false
+  },
+  "images": [
+    "https://dashboard.shadcnspace.com/images/backgrounds/ecommerce-img.svg",
+    "https://dashboard.shadcnspace.com/images/profile/avtar.webp",
+    "https://images.shadcnspace.com/assets/flags/flag-us.svg",
+    "https://images.shadcnspace.com/assets/flags/flag-china.svg",
+    "https://images.shadcnspace.com/assets/profiles/user-11.jpg",
+    "https://images.shadcnspace.com/assets/flags/flag-brazil.svg",
+    "https://images.shadcnspace.com/assets/flags/flag-india.svg",
+    "https://images.shadcnspace.com/assets/profiles/user-1.jpg",
+    "https://images.shadcnspace.com/assets/profiles/user-7.jpg",
+    "https://dashboard.shadcnspace.com/images/logos/whitelogo.svg?dpl=dpl_68gjxzoc11nmEjmEnpKJdTFd7GHg",
+    "https://dashboard.shadcnspace.com/images/logos/darklogo.svg?dpl=dpl_68gjxzoc11nmEjmEnpKJdTFd7GHg",
+    "https://images.shadcnspace.com/assets/profiles/user-3.jpg",
+    "https://images.shadcnspace.com/assets/profiles/user-5.jpg",
+    "https://images.shadcnspace.com/assets/widgets/icon-office-bag.svg",
+    "https://images.shadcnspace.com/assets/widgets/icon-mastercard.svg",
+    "https://images.shadcnspace.com/assets/flags/flag-australia.svg",
+    "https://images.shadcnspace.com/assets/widgets/icon-bank.svg",
+    "https://images.shadcnspace.com/assets/backgrounds/download-img.png",
+    "https://images.shadcnspace.com/assets/widgets/icon-pie-chart.svg",
+    "https://images.shadcnspace.com/assets/flags/flag-france.svg",
+    "https://dashboard.shadcnspace.com/images/flag/icon-flag-en.svg?dpl=dpl_68gjxzoc11nmEjmEnpKJdTFd7GHg",
+    "https://dashboard.shadcnspace.com/images/backgrounds/ecommerce-img-dark.svg",
+    "https://images.shadcnspace.com/assets/widgets/icon-paypal.svg",
+    "https://images.shadcnspace.com/assets/profiles/user-8.jpg"
+  ]
+}

@@ -47,8 +47,9 @@ export default async function SettingsAdminPage() {
             <SocialLinksField defaultValue={settings.socialLinks} />
           </Panel>
         </div>
-        <div className="sticky bottom-4 z-10 flex justify-end">
-          <SubmitButton className="shadow-lg">Simpan pengaturan</SubmitButton>
+        <div className="sticky bottom-4 z-10 flex items-center justify-between gap-4 rounded-xl border bg-card/95 px-4 py-3 shadow-lg backdrop-blur">
+          <p className="text-sm text-muted-foreground">Perubahan baru tayang setelah disimpan.</p>
+          <SubmitButton>Simpan pengaturan</SubmitButton>
         </div>
       </AdminForm>
     </>

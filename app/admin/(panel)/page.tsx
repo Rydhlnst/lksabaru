@@ -135,10 +135,10 @@ export default async function AdminDashboard() {
               {articles.map((article) => (
                 <TableRow key={article.id}>
                   <TableCell>
-                    <div className="flex items-center gap-3">
+                    <Link href={`/admin/news/${encodeURIComponent(article.id)}`} className="group flex items-center gap-3 rounded-lg outline-none focus-visible:ring-3 focus-visible:ring-ring/40">
                       <span className="relative size-10 shrink-0 overflow-hidden rounded-lg border bg-muted">{article.coverUrl && <Image src={article.coverUrl} alt="" fill sizes="40px" className="object-cover" />}</span>
-                      <span className="max-w-xs truncate font-medium md:max-w-md">{article.title}</span>
-                    </div>
+                      <span className="max-w-xs truncate font-medium group-hover:underline md:max-w-md">{article.title}</span>
+                    </Link>
                   </TableCell>
                   <TableCell className="text-muted-foreground">{formatDate(article.publishDate)}</TableCell>
                   <TableCell><PublishBadge status={article.status} /></TableCell>

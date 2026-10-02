@@ -2,9 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, Copy, Trash2, Upload, X } from "lucide-react";
+import { ArrowRight, CheckCircle2, Copy, ImagePlus, Trash2, Upload, X } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { formatDate, Panel } from "@/components/admin/ui";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -39,15 +40,13 @@ function DeleteMediaDialog({ asset, disabled, onDelete }: { asset: MediaAsset; d
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
-        <Button type="button" variant="ghost" size="sm" disabled={disabled} className="text-red-600 hover:bg-red-50 hover:text-red-700">
-          <Trash2 /> Hapus
-        </Button>
+        <Button type="button" variant="ghost" size="icon" disabled={disabled} aria-label={`Hapus ${asset.filename}`} title="Hapus" className="text-muted-foreground hover:bg-destructive/10 hover:text-destructive"><Trash2 /></Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Hapus aset ini?</AlertDialogTitle>
           <AlertDialogDescription>
-            Aset <span className="font-semibold">{asset.filename}</span> akan dihapus dari object storage. Pastikan aset ini tidak sedang dipakai konten lain.
+            Aset <span className="font-semibold">{asset.filename}</span> akan dihapus permanen dari penyimpanan. Gambar yang masih dipakai konten tidak akan terhapus.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -67,7 +66,7 @@ export function MediaUploader({ initialAssets }: { initialAssets: MediaAsset[] }
   const [busy, setBusy] = useState(false);
   const [uploadOpen, setUploadOpen] = useState(false);
   const [uploadedAsset, setUploadedAsset] = useState<MediaAsset | null>(null);
-  const [copied, setCopied] = useState(false);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
 
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -123,102 +122,87 @@ export function MediaUploader({ initialAssets }: { initialAssets: MediaAsset[] }
     }
   }
 
-  async function copyUrl() {
-    if (!uploadedAsset) return;
-    await navigator.clipboard.writeText(uploadedAsset.url);
-    setCopied(true);
-    toast.success("URL aset disalin.");
-    window.setTimeout(() => setCopied(false), 1600);
+  async function copyUrl(asset: MediaAsset) {
+    try {
+      await navigator.clipboard.writeText(asset.url);
+    } catch {
+      toast.error("URL tidak dapat disalin. Salin manual dari kolom gambar.");
+      return;
+    }
+    setCopiedId(asset.id);
+    toast.success("URL gambar disalin.");
+    window.setTimeout(() => setCopiedId((current) => current === asset.id ? null : current), 1600);
   }
 
-  return (
-    <div className="space-y-6">
-      <section className="rounded-2xl border border-border bg-card p-5">
-        <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            
-            <h2 className="text-base font-medium text-foreground">Aset website</h2>
-            <p className="mt-2 max-w-xl text-sm leading-6 text-muted-foreground">Upload gambar satu kali, lalu gunakan kembali untuk galeri, beranda, atau berita.</p>
-          </div>
-          <Dialog open={uploadOpen} onOpenChange={(open) => { if (!busy) setUploadOpen(open); }}>
-            <DialogTrigger asChild>
-              <Button type="button" size="lg"><Upload /> Upload aset</Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-lg">
-              <DialogHeader>
-                <DialogTitle>Upload aset baru</DialogTitle>
-                <DialogDescription>Gunakan JPG, PNG, atau WebP dengan ukuran maksimal 5 MB.</DialogDescription>
-              </DialogHeader>
-              <form onSubmit={submit} className="space-y-5">
-                <label className="grid gap-2 text-sm font-semibold" htmlFor="media-file">
-                  Pilih gambar
-                  <input id="media-file" className="rounded-xl border border-border p-3 text-sm file:mr-3 file:rounded-lg file:border-0 file:bg-orange/10 file:px-3 file:py-2 file:font-semibold file:text-orange" type="file" name="file" accept="image/jpeg,image/png,image/webp" required />
-                </label>
-                {message && <p className="text-sm text-red-600" role="alert">{message}</p>}
-                <DialogFooter>
-                  <DialogClose asChild><Button type="button" variant="outline" disabled={busy}>Batal</Button></DialogClose>
-                  <Button type="submit" disabled={busy}>{busy ? "Mengunggah..." : "Upload gambar"}</Button>
-                </DialogFooter>
-              </form>
-            </DialogContent>
-          </Dialog>
-        </div>
-        {message && !uploadOpen && <p className="mt-5 flex items-center gap-2 text-sm text-green" role="status"><CheckCircle2 className="h-4 w-4" />{message}</p>}
-      </section>
+  const uploadDialog = (
+    <Dialog open={uploadOpen} onOpenChange={(open) => { if (!busy) setUploadOpen(open); }}>
+      <DialogTrigger asChild>
+        <Button type="button"><Upload />Unggah gambar</Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-lg">
+        <DialogHeader>
+          <DialogTitle>Unggah gambar baru</DialogTitle>
+          <DialogDescription>Gunakan JPG, PNG, atau WebP dengan ukuran maksimal 5 MB.</DialogDescription>
+        </DialogHeader>
+        <form onSubmit={submit} className="grid gap-5">
+          <label className="grid gap-2 text-sm font-medium" htmlFor="media-file">
+            Pilih gambar
+            <input id="media-file" className="rounded-lg border border-border p-2 text-sm file:mr-3 file:rounded-md file:border-0 file:bg-muted file:px-3 file:py-1.5 file:font-medium file:text-foreground" type="file" name="file" accept="image/jpeg,image/png,image/webp" required />
+          </label>
+          {message && <p className="text-sm text-destructive" role="alert">{message}</p>}
+          <DialogFooter>
+            <DialogClose asChild><Button type="button" variant="outline" disabled={busy}>Batal</Button></DialogClose>
+            <Button type="submit" disabled={busy}>{busy ? "Mengunggah..." : "Unggah"}</Button>
+          </DialogFooter>
+        </form>
+      </DialogContent>
+    </Dialog>
+  );
 
+  return (
+    <div className="grid gap-4">
       {uploadedAsset && (
-        <section className="rounded-2xl border border-green/20 bg-green/5 p-5 md:p-6">
-          <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
-            <Image src={uploadedAsset.url} alt={uploadedAsset.alt || uploadedAsset.filename} width={220} height={160} className="aspect-[4/3] w-full rounded-xl object-cover sm:w-44" />
-            <div className="min-w-0 flex-1">
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <p className="flex items-center gap-2 text-sm font-bold text-green"><CheckCircle2 className="h-4 w-4" />Aset siap digunakan</p>
-                  <p className="mt-1 truncate text-sm font-semibold text-foreground">{uploadedAsset.filename}</p>
-                </div>
-                <button type="button" aria-label="Tutup pratinjau aset" onClick={() => setUploadedAsset(null)} className="rounded-full p-1 text-muted-foreground hover:bg-white hover:text-foreground"><X className="h-4 w-4" /></button>
-              </div>
-              <p className="mt-2 text-sm leading-6 text-muted-foreground">Hubungkan sekarang agar foto ini tampil di galeri publik.</p>
-              <div className="mt-4 flex flex-wrap items-center gap-3">
-                <Link href={galleryHref(uploadedAsset)} className="inline-flex h-9 items-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground hover:bg-primary/80">Tambahkan ke galeri <ArrowRight className="ml-2 h-4 w-4" /></Link>
-                <button type="button" onClick={copyUrl} className="inline-flex items-center gap-2 text-sm font-semibold text-foreground hover:text-orange"><Copy className="h-4 w-4" />{copied ? "Tersalin" : "Salin URL"}</button>
-              </div>
+        <section className="flex flex-col gap-4 rounded-xl border border-green/30 bg-green/5 p-4 sm:flex-row sm:items-center">
+          <Image src={uploadedAsset.url} alt={uploadedAsset.alt || uploadedAsset.filename} width={220} height={160} className="aspect-[4/3] w-full rounded-lg object-cover sm:w-32" />
+          <div className="min-w-0 flex-1">
+            <p className="flex items-center gap-2 text-sm font-medium text-green"><CheckCircle2 className="size-4" />Gambar siap digunakan</p>
+            <p className="mt-1 truncate text-sm text-muted-foreground">{uploadedAsset.filename}</p>
+            <div className="mt-3 flex flex-wrap items-center gap-2">
+              <Button asChild><Link href={galleryHref(uploadedAsset)}>Tambahkan ke galeri<ArrowRight /></Link></Button>
+              <Button type="button" variant="outline" onClick={() => void copyUrl(uploadedAsset)}><Copy />{copiedId === uploadedAsset.id ? "Tersalin" : "Salin URL"}</Button>
             </div>
           </div>
+          <Button type="button" variant="ghost" size="icon" aria-label="Tutup pratinjau" onClick={() => setUploadedAsset(null)} className="self-start"><X /></Button>
         </section>
       )}
 
-      <section className="rounded-2xl border border-border bg-card p-5">
-        <div className="flex flex-wrap items-end justify-between gap-3">
-          <div>
-            <h2 className="text-base font-medium">Aset tersimpan</h2>
-            <p className="mt-1 text-sm text-muted-foreground">Hapus hanya aset yang tidak lagi digunakan oleh konten.</p>
-          </div>
-          <span className="rounded-full bg-muted px-3 py-1 text-xs font-semibold text-muted-foreground">{assets.length} aset</span>
-        </div>
+      <Panel title="Gambar tersimpan" description={`${assets.length} gambar · yang masih dipakai konten tidak dapat dihapus`} action={uploadDialog}>
         {assets.length ? (
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {assets.map((asset) => (
-              <article key={asset.id} className="overflow-hidden rounded-xl border border-border">
-                <Image src={asset.url} alt={asset.alt || asset.filename} width={640} height={480} className="aspect-[4/3] w-full object-cover" />
-                <div className="flex items-center justify-between gap-3 p-4">
+              <article key={asset.id} className="overflow-hidden rounded-xl border bg-card">
+                <Image src={asset.url} alt={asset.alt || asset.filename} width={640} height={480} sizes="(min-width: 1280px) 25vw, (min-width: 640px) 50vw, 100vw" className="aspect-[4/3] w-full bg-muted object-cover" />
+                <div className="flex items-center justify-between gap-2 p-3">
                   <div className="min-w-0">
-                    <p className="truncate text-sm font-semibold text-foreground">{asset.filename}</p>
-                    <p className="mt-1 text-xs text-muted-foreground">{asset.mimeType}</p>
+                    <p className="truncate text-sm font-medium text-foreground" title={asset.filename}>{asset.filename}</p>
+                    <p className="mt-0.5 text-xs text-muted-foreground">{formatDate(new Date(asset.createdAt))}</p>
                   </div>
-                  <DeleteMediaDialog asset={asset} disabled={busy} onDelete={() => removeAsset(asset)} />
+                  <div className="flex shrink-0">
+                    <Button type="button" variant="ghost" size="icon" aria-label={`Salin URL ${asset.filename}`} title="Salin URL" onClick={() => void copyUrl(asset)}>{copiedId === asset.id ? <CheckCircle2 className="text-green" /> : <Copy />}</Button>
+                    <Button asChild variant="ghost" size="icon" aria-label={`Tambahkan ${asset.filename} ke galeri`} title="Tambahkan ke galeri"><Link href={galleryHref(asset)}><ImagePlus /></Link></Button>
+                    <DeleteMediaDialog asset={asset} disabled={busy} onDelete={() => removeAsset(asset)} />
+                  </div>
                 </div>
               </article>
             ))}
           </div>
         ) : (
-          <div className="mt-6 rounded-xl bg-muted p-8 text-center">
-            <Upload className="mx-auto h-7 w-7 text-orange" />
-            <p className="mt-3 font-semibold text-foreground">Belum ada aset tersimpan</p>
-            <p className="mt-1 text-sm text-muted-foreground">Upload gambar pertama untuk mulai mengisi media library.</p>
+          <div className="rounded-lg border border-dashed px-6 py-12 text-center">
+            <p className="text-sm font-medium text-foreground">Belum ada gambar tersimpan</p>
+            <p className="mt-1 text-sm text-muted-foreground">Unggah gambar pertama untuk mulai mengisi Media Library.</p>
           </div>
         )}
-      </section>
+      </Panel>
     </div>
   );
 }
