@@ -16,7 +16,13 @@ test("settings schema rejects unpaired social fields and unsafe URLs", () => {
 
 test("settings schema accepts current settings and optional secondary logo", () => {
   assert.equal(validation.settingsSchema.safeParse(defaultContent.settings).success, true);
-  assert.equal(validation.settingsSchema.safeParse({ ...defaultContent.settings, logoSecondary: "https://example.com/logo.png" }).success, true);
+  assert.equal(validation.settingsSchema.safeParse({ ...defaultContent.settings, logoSecondary: "/uploads/logo.png" }).success, true);
+});
+
+test("image fields reject hosts that next/image is not configured to load", () => {
+  assert.equal(validation.settingsSchema.safeParse({ ...defaultContent.settings, logoSecondary: "https://example.com/logo.png" }).success, false);
+  assert.equal(validation.gallerySchema.safeParse({ url: "https://example.com/foto.jpg", alt: "Foto", caption: "", order: 1, visible: true }).success, false);
+  assert.equal(validation.gallerySchema.safeParse({ url: "/uploads/foto.jpg", alt: "Foto", caption: "", order: 1, visible: true }).success, true);
 });
 
 test("settings schema bounds social links and validates public logo URLs", () => {

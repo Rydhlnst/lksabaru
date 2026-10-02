@@ -2,7 +2,7 @@ import "server-only";
 
 import { promises as fs } from "node:fs";
 import path from "node:path";
-import { DeleteObjectCommand, PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import { DeleteObjectCommand, ListObjectsV2Command, PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 
 const r2Config = {
   endpoint: process.env.R2_ENDPOINT,
@@ -19,6 +19,17 @@ export const hasCompleteR2Config = requiredR2Values.every(Boolean);
 const r2Client = hasCompleteR2Config
   ? new S3Client({ endpoint: r2Config.endpoint, region: r2Config.region, credentials: { accessKeyId: r2Config.accessKeyId!, secretAccessKey: r2Config.secretAccessKey! } })
   : null;
+
+/** Uji nyata ke bucket (bukan sekadar cek env), dipakai kartu "Koneksi data" di dashboard. */
+export async function pingStorage(): Promise<"r2" | "r2-error" | "incomplete" | "local"> {
+  if (!r2Client) return hasAnyR2Config ? "incomplete" : "local";
+  try {
+    await r2Client.send(new ListObjectsV2Command({ Bucket: r2Config.bucket, Prefix: "uploads/", MaxKeys: 1 }), { abortSignal: AbortSignal.timeout(4000) });
+    return "r2";
+  } catch {
+    return "r2-error";
+  }
+}
 
 export type StoredMedia = { url: string; filename: string; mimeType: string };
 

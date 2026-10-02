@@ -50,13 +50,17 @@ async function getFileContent(): Promise<SiteContent> {
   }
 }
 
-export async function getSiteContent(): Promise<SiteContent> {
+/**
+ * `strict` dipakai sebelum menulis: bila database terkonfigurasi tetapi gagal dibaca, lempar error
+ * alih-alih jatuh ke file lokal, supaya konten cadangan tidak pernah menimpa data di database.
+ */
+export async function getSiteContent({ strict = false }: { strict?: boolean } = {}): Promise<SiteContent> {
   if (db) {
     try {
       const rows = await db.select().from(siteSettings).where(eq(siteSettings.id, singletonId)).limit(1);
       if (rows[0]?.data) return normalizeSiteContent(rows[0].data as StoredSiteContent);
     } catch {
-      if (process.env.NODE_ENV === "production") throw new Error("Canonical content source is unavailable.");
+      if (strict || process.env.NODE_ENV === "production") throw new Error("Canonical content source is unavailable.");
     }
   }
   if (process.env.NODE_ENV === "production") throw new Error("Canonical content source is unavailable.");

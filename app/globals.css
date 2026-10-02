@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
 @theme inline {
   --color-orange: #ff6b00;
@@ -7,15 +8,94 @@
   --color-green: #009c48;
   --color-ink: #101828;
   --color-navy: #102a43;
-  --color-muted: #667085;
+  --color-muted: var(--muted);
   --color-line: #e8edf2;
   --font-sans: var(--font-inter);
   --font-heading: var(--font-el-messiri);
+
+  /* shadcn tokens (dashboard admin + komponen components/ui) */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
 }
 
-:root { --background: #ffffff; --foreground: #101828; }
+:root {
+  --background: #ffffff;
+  --foreground: #101828;
+  /* Di situs publik `muted` adalah warna teks; dashboard menimpanya di bawah. */
+  --muted: #667085;
+  --muted-foreground: #737373;
+  --card: #ffffff;
+  --card-foreground: #0a0a0a;
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0a;
+  --primary: #171717;
+  --primary-foreground: #fafafa;
+  --secondary: #f5f5f5;
+  --secondary-foreground: #171717;
+  --accent: #f5f5f5;
+  --accent-foreground: #171717;
+  --destructive: #dc2626;
+  --border: #e5e5e5;
+  --input: #e5e5e5;
+  --ring: #a3a3a3;
+  --radius: 0.625rem;
+  --chart-1: #171717;
+  --chart-2: #d4d4d4;
+  --chart-3: #009c48;
+  --chart-4: #ff6b00;
+  --chart-5: #102a43;
+  --sidebar: #fafafa;
+  --sidebar-foreground: #0a0a0a;
+  --sidebar-primary: #171717;
+  --sidebar-primary-foreground: #fafafa;
+  --sidebar-accent: #efefef;
+  --sidebar-accent-foreground: #171717;
+  --sidebar-border: #e5e5e5;
+  --sidebar-ring: #a3a3a3;
+}
+
+/* Dashboard admin: palet netral, sudut lebih rapat, dan heading sans. Berlaku juga untuk dialog/sheet yang di-portal ke body. */
+body:has([data-admin]) {
+  --foreground: #0a0a0a;
+  --muted: #f5f5f5;
+  --font-el-messiri: var(--font-inter);
+  --radius-2xl: 0.5rem;
+  --radius-3xl: 0.625rem;
+  --radius-4xl: 0.75rem;
+  background: #fafafa;
+  color: var(--foreground);
+}
 
 @layer base {
+  body:has([data-admin]) *, body:has([data-admin]) ::before, body:has([data-admin]) ::after { border-color: var(--border); }
   body { @apply bg-white text-ink; font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif; }
   html { scroll-behavior: smooth; }
   a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 3px solid rgba(255, 107, 0, .35); outline-offset: 3px; }

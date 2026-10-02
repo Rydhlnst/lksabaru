@@ -6,6 +6,7 @@ import { db } from "@/lib/db";
 import { mediaAssets } from "@/lib/db/schema";
 import { getImageReferences } from "@/lib/media-references";
 import { deleteStoredMedia, hasAnyR2Config, hasCompleteR2Config, storeMedia } from "@/lib/media-storage";
+import { removeMedia } from "@/lib/media-store";
 import { mediaDeleteSchema } from "@/lib/validation";
 
 export const runtime = "nodejs";
@@ -54,15 +55,14 @@ export async function DELETE(request: Request) {
   const row = parsed.data.id && db
     ? (await db.select().from(mediaAssets).where(eq(mediaAssets.id, parsed.data.id)).limit(1))[0]
     : undefined;
-  if (parsed.data.id && !row) return NextResponse.json({ error: "Media tidak ditemukan." }, { status: 404 });
+  if (parsed.data.id && db && !row) return NextResponse.json({ error: "Media tidak ditemukan." }, { status: 404 });
   if (row && row.url !== parsed.data.url) return NextResponse.json({ error: "URL media tidak cocok." }, { status: 400 });
 
   const references = getImageReferences(await getSiteContent(), parsed.data.url);
   if (references.length) return NextResponse.json({ error: `Media masih digunakan: ${references.join(", ")}. Hapus tautannya dari konten terlebih dahulu.` }, { status: 409 });
 
   try {
-    await deleteStoredMedia(parsed.data.url);
-    if (row && db) await db.delete(mediaAssets).where(eq(mediaAssets.id, row.id));
+    await removeMedia(parsed.data.url);
     return NextResponse.json({ ok: true });
   } catch {
     return NextResponse.json({ error: "Media tidak dapat dihapus dari penyimpanan." }, { status: 502 });

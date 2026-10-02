@@ -111,11 +111,11 @@ export function GalleryImageDropzone({ initialUrl = "", initialAlt = "" }: Galle
         }}
         onDragLeave={() => setDragging(false)}
         onDrop={handleDrop}
-        className={"flex min-h-56 w-full flex-col items-center justify-center rounded-2xl border-2 border-dashed p-6 text-center transition-colors " + (dragging ? "border-orange bg-orange/5" : "border-line bg-white hover:border-orange/60 hover:bg-[#fffaf7]") + (busy ? " cursor-wait opacity-75" : " cursor-pointer")}
+        className={"flex min-h-56 w-full flex-col items-center justify-center rounded-2xl border-2 border-dashed p-6 text-center transition-colors " + (dragging ? "border-orange bg-orange/5" : "border-border bg-white hover:border-foreground/30 hover:bg-muted/50") + (busy ? " cursor-wait opacity-75" : " cursor-pointer")}
         aria-describedby={inputId + "-hint"}
       >
         {previewUrl ? (
-          <div className="relative h-40 w-full max-w-sm overflow-hidden rounded-xl bg-[#f8fafc]">
+          <div className="relative h-40 w-full max-w-sm overflow-hidden rounded-xl bg-muted">
             <Image src={previewUrl} alt={filename || "Pratinjau foto"} fill sizes="(min-width: 640px) 384px, 100vw" className="object-contain" />
           </div>
         ) : (
@@ -123,19 +123,19 @@ export function GalleryImageDropzone({ initialUrl = "", initialAlt = "" }: Galle
             {busy ? <Loader2 className="h-7 w-7 animate-spin" /> : <UploadCloud className="h-7 w-7" />}
           </span>
         )}
-        <span className="mt-4 text-base font-bold text-ink">{busy ? "Mengunggah foto..." : previewUrl ? "Pilih foto lain" : "Tarik dan letakkan foto di sini"}</span>
-        <span id={inputId + "-hint"} className="mt-1 text-sm text-muted">{busy ? "Tunggu sampai upload selesai." : "atau klik untuk memilih dari perangkat · JPG, PNG, WebP · maksimal 5 MB"}</span>
+        <span className="mt-4 text-base font-bold text-foreground">{busy ? "Mengunggah foto..." : previewUrl ? "Pilih foto lain" : "Tarik dan letakkan foto di sini"}</span>
+        <span id={inputId + "-hint"} className="mt-1 text-sm text-muted-foreground">{busy ? "Tunggu sampai upload selesai." : "atau klik untuk memilih dari perangkat · JPG, PNG, WebP · maksimal 5 MB"}</span>
       </button>
       {previewUrl && (
-        <div className="flex items-center justify-between gap-3 rounded-xl border border-line bg-white px-4 py-3">
+        <div className="flex items-center justify-between gap-3 rounded-xl border border-border bg-white px-4 py-3">
           <p className="flex min-w-0 items-center gap-2 text-sm font-semibold text-green"><CheckCircle2 className="h-4 w-4 shrink-0" /><span className="truncate">{filename}</span></p>
-          <button type="button" onClick={() => void clearSelection()} disabled={busy} className="inline-flex shrink-0 items-center gap-1 rounded-lg px-2 py-1 text-sm font-semibold text-muted hover:bg-[#f8fafc] hover:text-red-600">
+          <button type="button" onClick={() => void clearSelection()} disabled={busy} className="inline-flex shrink-0 items-center gap-1 rounded-lg px-2 py-1 text-sm font-semibold text-muted-foreground hover:bg-muted hover:text-red-600">
             <X className="h-4 w-4" /> Hapus
           </button>
         </div>
       )}
       {message && <p className={"text-sm " + (message.includes("berhasil") ? "text-green-700" : "text-red-600")} role="status">{message}</p>}
-      {!previewUrl && <p className="flex items-center gap-2 text-xs text-muted"><ImagePlus className="h-4 w-4" />Foto akan otomatis tersimpan di Media Library setelah dipilih.</p>}
+      {!previewUrl && <p className="flex items-center gap-2 text-xs text-muted-foreground"><ImagePlus className="h-4 w-4" />Foto akan otomatis tersimpan di Media Library setelah dipilih.</p>}
     </div>
   );
 }

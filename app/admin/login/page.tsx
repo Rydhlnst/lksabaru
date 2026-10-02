@@ -1,7 +1,37 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import { loginAction } from "@/app/admin/actions";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
-export default async function AdminLoginPage({ searchParams }: { searchParams: Promise<{ error?: string }> }) { const params = await searchParams; return <main className="flex min-h-screen items-center justify-center bg-navy px-5 py-12"><div className="w-full max-w-md rounded-3xl bg-white p-8 shadow-elevated md:p-10"><Link href="/" className="text-sm font-semibold text-orange">← Kembali ke website</Link><div className="mt-10"><span className="flex h-14 w-14 items-center justify-center rounded-full bg-white p-1 shadow-sm"><Image src="/media/logo-payf.png" alt="Logo PAYF Al-Furqon Sanden" width={56} height={56} className="h-full w-full object-contain" /></span><h1 className="mt-6 font-heading text-3xl font-bold text-ink">Masuk ke LKSA CMS</h1><p className="mt-2 text-sm leading-6 text-muted">Kelola halaman, berita, jadwal, donasi, dan pengaturan website.</p></div>{params.error && <p className="mt-6 rounded-xl bg-red-50 p-3 text-sm font-semibold text-red-700">Email atau password tidak valid.</p>}<form action={loginAction} className="mt-8 grid gap-5"><label className="grid gap-2 text-sm font-semibold text-ink">Email<input className="form-input" name="email" type="email" placeholder="admin@lksa.local" required /></label><label className="grid gap-2 text-sm font-semibold text-ink">Password<input className="form-input" name="password" type="password" placeholder="••••••••" minLength={8} required /></label><button className="button-primary mt-2 w-full">Masuk</button></form><p className="mt-6 text-xs leading-5 text-muted">Mode lokal: gunakan kredensial dari <code>CMS_ADMIN_EMAIL</code> dan <code>CMS_ADMIN_PASSWORD</code>.</p></div></main>; }
-
-
+export default async function AdminLoginPage({ searchParams }: { searchParams: Promise<{ error?: string }> }) {
+  const params = await searchParams;
+  return (
+    <main data-admin="" className="flex min-h-screen items-center justify-center px-4 py-12">
+      <div className="w-full max-w-sm">
+        <div className="rounded-xl border bg-card p-6 sm:p-8">
+          <span className="flex size-12 items-center justify-center overflow-hidden rounded-full bg-white ring-1 ring-border">
+            <Image src="/media/logo-payf.png" alt="Logo PAYF Al-Furqon Sanden" width={48} height={48} className="size-full object-contain" />
+          </span>
+          <h1 className="mt-5 text-xl font-semibold tracking-tight">Masuk ke LKSA CMS</h1>
+          <p className="mt-1 text-sm text-muted-foreground">Kelola halaman, berita, jadwal, donasi, dan pengaturan website.</p>
+          {params.error && <p role="alert" className="mt-5 rounded-lg bg-destructive/10 px-3 py-2 text-sm font-medium text-destructive">Email atau password tidak valid.</p>}
+          <form action={loginAction} className="mt-6 grid gap-4">
+            <div className="grid gap-1.5">
+              <Label htmlFor="email">Email</Label>
+              <Input id="email" name="email" type="email" autoComplete="username" required className="h-9 border-border bg-background shadow-xs" />
+            </div>
+            <div className="grid gap-1.5">
+              <Label htmlFor="password">Password</Label>
+              <Input id="password" name="password" type="password" autoComplete="current-password" minLength={8} required className="h-9 border-border bg-background shadow-xs" />
+            </div>
+            <Button type="submit" size="lg" className="mt-2 w-full">Masuk</Button>
+          </form>
+        </div>
+        <Link href="/" className="mt-5 inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"><ArrowLeft className="size-4" />Kembali ke website</Link>
+      </div>
+    </main>
+  );
+}
